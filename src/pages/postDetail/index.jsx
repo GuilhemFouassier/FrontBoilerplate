@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import Comment from "../../components/comment";
 import Input from "../../components/input";
 import './style.scss';
 import axios from 'axios';
 import Button from "../../components/button";
+
 
 function PostDetail() {
     const [post, setPost] = useState();
@@ -14,7 +15,7 @@ function PostDetail() {
     const [postID, setPostId] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
     const { id } = useParams();
-
+    let history = useHistory();
 
     useEffect(() => {
         fetch(`http://localhost:6985/api/post/${id}`, {
@@ -37,7 +38,7 @@ function PostDetail() {
 
    const handleSubmitEdit = (e) => {
        e.preventDefault();
-       axios.put(`http://localhost:6985/api/post/605a2b5440b419476207bb9d`, { 
+       axios.put(`http://localhost:6985/api/post/${postID}`, { 
             headline: headline,
             body: body
        }, {
@@ -45,6 +46,17 @@ function PostDetail() {
        })
       .then(res => {
         window.location.reload(false);
+      })
+      .catch(err => console.log(err))
+    }
+
+    const handleSubmitDelete = (e) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:6985/api/post/${postID}`,{
+           withCredentials: true
+       })
+      .then(res => {
+        history.push('/')
       })
       .catch(err => console.log(err))
     }
@@ -74,7 +86,7 @@ function PostDetail() {
                 {   post.author._id === localStorage.getItem('id') ?
                     <>
                     <p>Vous êtes propriétaire de l'article : vous pouvez le supprimer ici :</p>
-                    <form action="" method="POST">
+                    <form action="" method="POST" onSubmit={handleSubmitDelete}>
                     <Button name="submit" type="submit" value={'Supprimer l\'article'}/>
                     </form> 
                     <p>Vous êtes propriétaire de l'article : vous pouvez l'éditer ici :</p>
