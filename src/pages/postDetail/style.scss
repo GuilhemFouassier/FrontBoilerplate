@@ -1,0 +1,21 @@
+.post-detail{
+    .body{
+        padding-top: 30px;
+        background-color: rgba(0,0,0,0.1);
+        p{
+            font-size: 16px;
+        }
+    }
+    .likes{
+        width: 100%;
+        background-color: rgba(0,0,0,0.3);
+        padding: 5px;
+        p{
+            margin-bottom: 0;
+        }
+    }
+}
+
+input[name="posts"]{
+    display: none;
+}

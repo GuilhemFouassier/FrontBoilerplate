@@ -1,0 +1,21 @@
+.post-teaser{
+    width: calc(100% / 3 - 10px);
+    margin-left: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    border: 1px solid #9b4dca;
+    transition: all 0.3s ease-in-out;
+    color: #606c76;
+    &:hover{
+        box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.2);
+    }
+    &:nth-of-type(3n+1){
+        margin-left: 0;
+    }
+
+    h3{
+      font-size: 25px;  
+    }
+}
