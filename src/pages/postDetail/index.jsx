@@ -74,8 +74,42 @@ function PostDetail() {
       })
       .catch(err => console.log(err))
     }
+    const handleSubmitLike = (e) =>{
+        e.preventDefault();
+        axios.post(`http://localhost:6985/api/like/`,{ 
+            post: postID
+       }, {
+           withCredentials: true
+       })
+       .then(res => {
+        window.location.reload(false);
+      })
+      .catch(err => console.log(err))
+    }
+
+    const handleSubmitDeleteLike = (e) =>{
+        e.preventDefault();
+         axios.delete(`http://localhost:6985/api/like/${idLike}`,{
+           withCredentials: true
+       })
+       .then(res => {
+        window.location.reload(false);
+      })
+      .catch(err => console.log(err))
+    }
     
     if(isLoaded){
+        var exist = false;
+        var idLike = '';
+        var user = localStorage.getItem('id');
+        for(var i =0; i < post.likes.length; i++){
+            if(post.likes[i].author === user){
+                exist = true;
+                idLike = post.likes[i]._id
+                console.log(exist);
+            } 
+        }
+
         return(
             <>
              <section className="post-detail">
@@ -113,10 +147,22 @@ function PostDetail() {
             </div>
             <div className="row">
                     <article className="column column-80 column-offset-10 likes">
-                     <form action="" method="POST">
+                     { exist === true ?
+                     <>
+                     <form action="" method="DELETE" onSubmit={handleSubmitDeleteLike}>
+                            <Input name="like" type="text" value={idLike} id="likeID" />
+                            <Button name="submit" type="submit" value="Unlike" />
+                    </form>
+                     </>
+                        :
+                        <>
+                        <form action="" method="POST" onSubmit={handleSubmitLike}>
                             <Input name="posts" type="text" value={post._id}/>
                             <Button name="submit" type="submit" value="like" />
                         </form>
+                        </>
+                     }
+                        
                     {post.likes.length > 0 ? 
                             <>
                             <p>{post.likes.length} likes</p>
