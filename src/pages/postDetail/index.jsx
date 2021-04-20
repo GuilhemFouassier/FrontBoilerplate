@@ -190,7 +190,7 @@ function PostDetail() {
                             </>
                         }
                          <form action="" method="POST" onSubmit={handleSubmitComment}>
-                            <Input name="text" label="Commenter" type="text" handleChange={(e)=> setComment(e.target.value)} value={'un comment'}/>
+                            <Input name="text" label="Commenter : " type="text" handleChange={(e)=> setComment(e.target.value)}/>
                             <Button name="submit" type="submit" value="commenter" />
                         </form>
                     </article>

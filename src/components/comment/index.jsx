@@ -76,7 +76,7 @@ function Comment(props) {
                             </>
                         }</div>
                <div>
-               {props.text} - {props.author.givenName}
+               {props.text} - De :{props.author.givenName}
                { props.author._id === localStorage.getItem('id') ?
                     <>
                         <form action="" onSubmit={handleSubmitDelete}>
