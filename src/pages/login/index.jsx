@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
@@ -11,6 +11,10 @@ function Login() {
      function validateForm() {
        return email.length > 0 && password.length > 0;
      }
+
+    useEffect(() => {
+      localStorage.removeItem('id');
+    }, []);
 
     function handleSubmit(event) {
       event.preventDefault();
